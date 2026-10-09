@@ -18,13 +18,22 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // 0. Seed User Admin
-        User::updateOrCreate(
+        $admin = User::updateOrCreate(
             ['email' => 'admin@admin.com'],
             [
                 'name' => 'Administrator SISFO',
                 'password' => bcrypt('password'),
             ]
         );
+        $hasAnotherSuperadmin = User::query()
+            ->where('is_superadmin', true)
+            ->where('id', '<>', $admin->id)
+            ->exists();
+
+        if (! $hasAnotherSuperadmin && ! $admin->is_superadmin) {
+            $admin->is_superadmin = true;
+            $admin->save();
+        }
 
         // 1. Seed Kelas
         $kelas1 = Kelas::updateOrCreate(

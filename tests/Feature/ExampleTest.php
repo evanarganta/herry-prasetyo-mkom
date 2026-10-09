@@ -21,10 +21,10 @@ class ExampleTest extends TestCase
         $this->post(route('siswa.store'), [])->assertRedirect(route('login'));
     }
 
-    public function test_login_page_is_available_and_registration_is_disabled(): void
+    public function test_login_page_and_registration_form_are_available(): void
     {
         $this->get(route('login'))->assertOk()->assertSee('Selamat Datang Kembali!');
-        $this->get('/register')->assertNotFound();
+        $this->get(route('register'))->assertOk()->assertSee('Buat Akun Baru!');
     }
 
     public function test_seeded_admin_can_log_in(): void

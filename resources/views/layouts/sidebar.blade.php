@@ -76,6 +76,21 @@
         </a>
     </li>
 
+    @can('manage-users')
+        <hr class="sidebar-divider">
+
+        <div class="sidebar-heading">
+            Pengaturan
+        </div>
+
+        <li class="nav-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('users.index') }}">
+                <i class="fas fa-fw fa-users-cog"></i>
+                <span>Manajemen Pengguna</span>
+            </a>
+        </li>
+    @endcan
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
